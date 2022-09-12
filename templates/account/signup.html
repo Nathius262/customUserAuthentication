@@ -1,0 +1,82 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load static %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+
+
+
+<div class="modal modal-signin position-static d-block bg-default py-5" tabindex="-1" role="dialog" id="register">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4">
+       <div class="d-flex justify-content-center">
+        <img class="col-4" width="100" src="{% static 'img/zoe-blog2b.png' %}" alt="zoe-blog2b">
+      </div>
+      <div class="justify-content-center pb-4 ">
+        <!-- <h5 class="modal-title">Modal title</h5> -->
+        <h1 class="text-center fw-bold mb-0">Sign up</h1>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form method="post" enctype="multipart/form-data" class="">{% csrf_token %}
+          <p class="form-text error-text text-danger">
+              {{ form.non_field_errors.as_text }}
+          </p>
+          <div class="form-floating mb-3">
+            <p class="text-danger">
+                {{ form.email.errors.as_text }}
+            </p>
+            <input type="email" name="email" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com" autocomplete="email" required>
+            <label class="d-flex" for="floatingInput">Email<span class="d-none d-md-flex mx-1"> address</span></label>
+          </div>
+          <div class="form-floating mb-3">
+            <p class="text-danger">
+                {{ form.username.errors.as_text }}
+            </p>
+            <input type="text" name="username" class="form-control rounded-3" id="floatingUsername" placeholder="Username" autocomplete="username" minlength="1" maxlength="150" required>
+            <label for="floatingUsername">Username</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <p class="text-danger">
+                {{ form.first_name.errors.as_text }}
+            </p>
+            <input type="text" name="first_name" class="form-control rounded-3" id="floatingfirst_name" placeholder="First name" autocomplete="first_name" minlength="1" maxlength="150" required>
+            <label for="floatingfirst_name">First name</label>
+          </div>
+
+          <div class="form-floating mb-3">
+            <p class="text-danger">
+                {{ form.last_name.errors.as_text }}
+            </p>
+            <input type="text" name="last_name" class="form-control rounded-3" id="floatinglast_name" placeholder="Last name" autocomplete="last_name" minlength="1" maxlength="150" required>
+            <label for="floatinglast_name">Last name</label>
+          </div>
+          
+          <div class="form-floating mb-3">
+            <input type="password"  name="password1" class="form-control rounded-3" id="floatingPassword1" placeholder="password" autocomplete="new-password" required>
+            <label class="d-flex" for="floatingPassword1">Password</label>
+          </div>
+            <p class="text-danger">
+              {{ form.password1.errors.as_text }}
+            </p>
+          <div class="form-floating mb-3">
+           
+            <input type="password"  name="password2" class="form-control rounded-3" id="floatingPassword2" placeholder="Confirm password" autocomplete="new-password" required>
+            <label class="d-flex" for="floatingPassword2">Confirm <span class="d-sm-none mx-1">pass...</span><span class="d-none d-sm-flex mx-1"> Password</span></label>
+          </div>
+          
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">{% trans "Sign Up" %} &raquo;</button>
+
+          <p>{% blocktrans %}Already have an account? Then please <a href="{{ login_url }}">sign in</a>.{% endblocktrans %}</p>
+         
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

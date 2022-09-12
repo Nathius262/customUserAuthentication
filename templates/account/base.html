@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{% block head_title %}{% endblock %}</title>
+    {% block extra_head %}
+    {% endblock %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+      {% block header %}
+      {% endblock header %}
+    </title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static '/css/bootstrap.min.css' %}">
+
+    <!-- jquery js-->
+    <script src="{% static '/js/jquery-2.1.1.min.js' %}"></script>
+
+
+    <!-- custom css--->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+
+  </head>
+  <body>
+    {% block body %}
+
+    <!-- header start -->
+    <nav class="navbar navbar-expand-lg bg-light navbar-light shadow navClass">
+      <div class="container">
+        <h2 class="me-5 nav_items">Zoe Shop</h2>
+
+
+        <div class="d-flex align-items-center">
+          <button style="background-color: #e4e3e3;" class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navmenu">
+ 
+          <ul class="navbar-nav ms-auto align-items-start align-items-lg-center">
+            {% if request.user.is_authenticated %}
+            <li class="nav-item log">
+                <a class="nav-link nav_items" href="{% url 'account_logout' %}">sign out</a>
+            </li>
+
+            <li class="nav-item log">
+                <a class="nav-link nav_items" href="{% url 'account_email' %}">change email</a>
+            </li>
+
+            {% else %}
+            <li class="nav-item log">
+                <a class="nav-link nav_items" href="{% url 'account_signup' %}">Sign up</a>
+            </li>
+            <li class="nav-item mx-0 mx-lg-2 log">
+                <a class="nav-link nav_items" href="{% url 'account_login' %}">Sign in</a>
+            </li>       
+            {% endif %}
+            
+          </ul>
+        
+        </div>
+
+      </div>    
+    </nav>
+
+    {% if messages %}
+    <div class="container">
+      <div>
+        {% for message in messages %}
+         <div class="d-flex justify-content-center text-center alert alert-{{message.tags}} m-2" role="alert">
+              <!---<p class="fw-bold fs-4 mb-0 mx-2">{{message.tags | title}}!</p>--->
+              <p class="fs-4 mb-0">{{message}}</p>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% endif %}
+    <!-- header end -->
+
+
+    {% block content %}
+    {% endblock %}
+    {% endblock %}
+    {% block extra_body %}
+    {% endblock %}
+
+
+
+    <script src="{% static '/js/bootstrap.bundle.min.js' %}"></script>
+    <script type="text/javascript" src="{% static '/js/cart.js' %}"></script>
+  </body>
+</html>
